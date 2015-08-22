@@ -18,6 +18,7 @@
 .globl _start
 _start:
 
+
 b main
 
 .section .text
@@ -55,23 +56,16 @@ add r3, r0, r1	@ suma de estadoBajo y estadoAlto
 cmp r3, #100	@ comparacion estadoAlto + estadoBajo = 100
 bne Alarma		@ si la suma no es igual a 100 ejecutar alarma.
 
-@ tiempo en alto a s1
-@ cargo r1 a s1 para trabajar con punto flotante
-str r1,[r1] 	@en la direccion de r1 cargo el dato
-flds s1,[r1] 	@guardo el dato en s1 @@ instruccion no soportada error a la hora de compilar  <-------------------------
+@multiplicar % en alto por periodo
+mul r0, r1, r2
+mov r1, #100
 
-@ periodo en s2
-@ cargo r2 a s2 para trabajar con punto flotante
-str r2,[r1] 	@en la direccion de r1 cargo el dato
-flds s2,[r1] 	@guardo el dato en s1 @@ instruccion no soportada error a la hora de compilar	<-------------------------
-
-@ sacar el tiempo en alto
-@ y enviar periodo y tiempo en Alto
-fmuls s1, s1, s2 @@ instruccion no soportada error a la hora de compilar	<-------------------------
-fmuls s1, s1, #0.01 @@ instruccion no soportada error a la hora de compilar	<-------------------------
-
-@ pasar s1 a r1 para enviar tiempo en alto
-fsts s1, [r1] @@ instruccion no soportada error a la hora de compilar	<-------------------------
+@ dividir (periodo por (%)) entre 100
+@ mandar a division en r0 el dividendo
+@ mandar a division en r1 el divisor
+bl division
+@ mover tiempo en alto a r1
+mov r1, r0
 
 @ cargar periodo en r0 para enviarlo
 ldr r0,=periodo 	@apunto a la variable tipo .word

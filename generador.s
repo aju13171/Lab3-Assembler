@@ -366,4 +366,29 @@ GetGpioAddress:
 	mov pc,lr
 	.unreq gpioAddr
 	
+<<<<<<< HEAD
 	
+=======
+@ --------------------------------------------------------------------------------------------------------	
+	
+@Subrutina que calcula el cociente  de dos numeros
+@Parametros de entrada:
+@r0: dividendo
+@r1: divisor
+@Parametros de salida
+@r0: cociente
+
+.global division
+division:
+	mov r2,#-1	@negativo el valor del divisor
+	mul r1,r2	
+	and r3,#0	@inicializar en cero r3
+	
+ciclo:
+	add r3,#1	@incrementa en 1 el valor del cociente
+	add r0,r1	@resta al dividendo el valor del divisor
+	cmp r0,#0	@es mayor que cero?
+	bgt	ciclo	@si, realizar nuevamente la resta
+	mov r0,r3	@no, mover valor de cociente a r0
+	mov pc,lr
+>>>>>>> origin/master
