@@ -26,8 +26,10 @@
 Astable:
 	
 
+@ --------------------------------------------------------------------------------------------------------
+
 @@subrutina Alarma que muestra una secuencia de encendido y
-apagado de 0.5s del led ok 3 veces. Se mantendra apagado
+@ apagado de 0.5s del led ok 3 veces. Se mantendra apagado
 
 .globl Alarma
 Alarma:
@@ -150,6 +152,7 @@ Alarma:
 	.unreq pinNum
 	.unreq pinVal
 	
+@ --------------------------------------------------------------------------------------------------------	
 
 @@Check:
 @@subrutina que verifica que la suma de porcentajes 
@@ -172,7 +175,8 @@ Check:
 fin:
 	pop {pc}
 
-	
+@ --------------------------------------------------------------------------------------------------------
+
 @@**************************************************
 @@subrutinas Wait, GetTimeStamp, GetSystemTimerBase
 @@tomadas del ejemplo ok04 del taller de Assembler
@@ -201,6 +205,8 @@ Wait:
 	.unreq delay
 	.unreq start
 	pop {pc}
+	
+@ --------------------------------------------------------------------------------------------------------
 
 @@GetTimeStamp gets the current timestamp of
 @@the system timer, and returns it in registers 
@@ -211,6 +217,8 @@ GetTimeStamp:
 	bl GetSystemTimerBase
 	ldrd r0,r1,[r0,#4]
 	pop {pc}
+	
+@ --------------------------------------------------------------------------------------------------------
 
 	
 @@GetSystemTimerBase returns the base address of the System Timer region as a
@@ -220,6 +228,8 @@ GetTimeStamp:
 GetSystemTimerBase: 
 	ldr r0,=0x20003000
 	mov pc,lr
+	
+@ --------------------------------------------------------------------------------------------------------
 	
 @@****************************************************
 @@subrutinas GetGpioAddress, setGpioFunction, SetGpio
@@ -270,6 +280,8 @@ SetGpioFunction:
 	.unreq gpioAddr
 	pop {pc}
 	
+@ --------------------------------------------------------------------------------------------------------
+	
 @@Envia la señal (encendido/apagado) puesto en R1 al pin del GPIO enviado por R0
 .globl SetGpio
 SetGpio:	
@@ -304,6 +316,8 @@ SetGpio:
 	.unreq setBit
 	.unreq gpioAddr
 	pop {pc}
+	
+@ --------------------------------------------------------------------------------------------------------
 	
 @@Retorna la direccion del GPIO en R0
 .globl GetGpioAddress
