@@ -22,9 +22,12 @@
 @@Astable: 
 @@recibe en r0: el período
 @@recibe en r1 el valor del tiempo de encendido
-@@el tiempo se recibe en segundos
+@@el tiempo se recibe en segundos y solo se hace un encendido
+@@y un apagado con los tiempos enviados porque en el main
+@@existe un loop infinito
 .globl Astable
 Astable:
+	push {lr} /*se almacena el lr por subrutinas anidadas*/
 	/*r0 = periodo*/
 	/*r1 = tiempo de ALTO*/
 	/*r2 = tiempo de BAJO*/
@@ -42,7 +45,22 @@ Astable:
 	/*se crea un delay con el tiempo alto*/
 	MOV R3, #1 
 	LSL R3, R3, #7 /*un segundo en microsegundos*/
-	MUL R0, R3, R4 /*se multiplica los segundos por*/
+	MUL R0, R3, R4 /*se multiplica los segundos altos por 1000000 microsegundos*/
+	BL Wait /*en r0 se envia la cantidad en microsengundos a esperar*/
+	
+	/*mando instruccion de apagado*/
+	MOV R0, #16
+	MOV R1, #1
+	BL SetGpio
+	
+	/*se crea un delay con el tiempo bajo*/
+	MOV R3, #1*/
+	LSL R3, R3, #7
+	MUL R0, R3, R5 /*se multiplica los segundos bajos por 1000000 microsegundos*/
+	BL Wait
+	
+	/*retorno al main*/
+	pop{pc}
 	
 	
 
