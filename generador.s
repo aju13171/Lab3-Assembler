@@ -22,8 +22,28 @@
 @@Astable: 
 @@recibe en r0: el período
 @@recibe en r1 el valor del tiempo de encendido
+@@el tiempo se recibe en segundos
 .globl Astable
 Astable:
+	/*r0 = periodo*/
+	/*r1 = tiempo de ALTO*/
+	/*r2 = tiempo de BAJO*/
+
+	SUB bajo, periodo, alto /*bajo = periodo - alto*/
+	/*se reasignan los registros de los estados*/
+	MOV R4, R1 /*tiempo de ALTO*/
+	MOV R5, R2 /*tiempo de BAJO*/
+	
+	/*mando instruccion de encendidio*/
+	MOV R0, #16
+	MOV R1, #0
+	BL SetGpio
+	
+	/*se crea un delay con el tiempo alto*/
+	MOV R3, #1 
+	LSL R3, R3, #7 /*un segundo en microsegundos*/
+	MUL R0, R3, R4 /*se multiplica los segundos por*/
+	
 	
 
 @ --------------------------------------------------------------------------------------------------------
