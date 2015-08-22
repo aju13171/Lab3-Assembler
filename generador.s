@@ -27,12 +27,11 @@
 @@existe un loop infinito
 .globl Astable
 Astable:
-	push {lr} /*se almacena el lr por subrutinas anidadas*/
 	/*r0 = periodo*/
 	/*r1 = tiempo de ALTO*/
 	/*r2 = tiempo de BAJO*/
 
-	SUB bajo, periodo, alto /*bajo = periodo - alto*/
+	SUB r2, r0, r1 /*bajo = periodo - alto*/
 	/*se reasignan los registros de los estados*/
 	MOV R4, R1 /*tiempo de ALTO*/
 	MOV R5, R2 /*tiempo de BAJO*/
@@ -40,6 +39,7 @@ Astable:
 	/*mando instruccion de encendidio*/
 	MOV R0, #16
 	MOV R1, #0
+	push {lr} /*se almacena el lr por subrutinas anidadas*/
 	BL SetGpio
 	
 	/*se crea un delay con el tiempo alto*/
@@ -54,7 +54,7 @@ Astable:
 	BL SetGpio
 	
 	/*se crea un delay con el tiempo bajo*/
-	MOV R3, #1*/
+	MOV R3, #1
 	LSL R3, R3, #7
 	MUL R0, R3, R5 /*se multiplica los segundos bajos por 1000000 microsegundos*/
 	BL Wait
@@ -71,7 +71,7 @@ Astable:
 
 .globl Alarma
 Alarma:
-
+	@@push {lr}
 	pinNum .req r0
 	pinVal .req r1
 	mov pinNum,#16
@@ -189,6 +189,7 @@ Alarma:
 	bl SetGpio
 	.unreq pinNum
 	.unreq pinVal
+	@@pop{pc}
 	
 @ --------------------------------------------------------------------------------------------------------	
 
@@ -364,3 +365,5 @@ GetGpioAddress:
 	ldr gpioAddr,=0x20200000
 	mov pc,lr
 	.unreq gpioAddr
+	
+	
