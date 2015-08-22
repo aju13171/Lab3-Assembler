@@ -1,3 +1,20 @@
+@ Universidad del Valle de Guatemala
+@ Taller de Assembler
+@ Sección 21
+@
+@ Laboratorio 3
+@
+@ generador.s
+@
+@ Christopher Ajú
+@ 13171
+@
+@ Jorge Manrique
+@ 13600
+@
+@ -----------------------------------
+
+
 @@Archivo: generador.s
 @@Contiene todas las subrutinas necesarias para
 @@el main
@@ -9,18 +26,129 @@
 Astable:
 	
 
-
-
-
-@@Fail:
-@@subrutina que muestra una secuencia de encendido y
+@@subrutina Alarma que muestra una secuencia de encendido y
 apagado de 0.5s del led ok 3 veces. Se mantendra apagado
-.globl Fail
-Fail:
-	/*encendido del led OK (pin 16)*/
-	/*se realiza el set del pin*/
+
+.globl Alarma
+Alarma:
+
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#0	@ Encender el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
+
+	/*
+	* Now, to create a delay, we busy the processor on a pointless quest to 
+	* decrement the number 0x3F0000 to 0!
+	*/
+	decr .req r0
+	mov decr,#0x3F0000
+	wait1$: 
+		sub decr,#1
+		teq decr,#0
+		bne wait1$
+	.unreq decr
+
+	/* NEW
+	* Use our new SetGpio function to set GPIO 16 to high, causing the LED to turn 
+	* off.
+	*/
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#1	@ Apagar el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
+
+	/*
+	* Wait once more.
+	*/
+	decr .req r0
+	mov decr,#0x3F0000
+	wait2$:
+		sub decr,#1
+		teq decr,#0
+		bne wait2$
+	.unreq decr
 	
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#0	@ Encender el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
+
+	/*
+	* Now, to create a delay, we busy the processor on a pointless quest to 
+	* decrement the number 0x3F0000 to 0!
+	*/
+	decr .req r0
+	mov decr,#0x3F0000
+	wait3$: 
+		sub decr,#1
+		teq decr,#0
+		bne wait3$
+	.unreq decr
+
+	/* NEW
+	* Use our new SetGpio function to set GPIO 16 to high, causing the LED to turn 
+	* off.
+	*/
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#1	@ Apagar el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
 	
+	/*
+	* Wait once more.
+	*/
+	decr .req r0
+	mov decr,#0x3F0000
+	wait4$:
+		sub decr,#1
+		teq decr,#0
+		bne wait4$
+	.unreq decr
+	
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#0	@ Encender el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
+
+	/*
+	* Now, to create a delay, we busy the processor on a pointless quest to 
+	* decrement the number 0x3F0000 to 0!
+	*/
+	decr .req r0
+	mov decr,#0x3F0000
+	wait5$: 
+		sub decr,#1
+		teq decr,#0
+		bne wait5$
+	.unreq decr
+
+	/* NEW
+	* Use our new SetGpio function to set GPIO 16 to high, causing the LED to turn 
+	* off.
+	*/
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#1	@ Apagar el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
 	
 
 @@Check:
