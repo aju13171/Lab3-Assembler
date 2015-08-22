@@ -60,7 +60,7 @@ Astable:
 	BL Wait
 	
 	/*retorno al main*/
-	pop{pc}
+	pop {pc}
 	
 	
 
@@ -365,10 +365,7 @@ GetGpioAddress:
 	ldr gpioAddr,=0x20200000
 	mov pc,lr
 	.unreq gpioAddr
-	
-<<<<<<< HEAD
-	
-=======
+
 @ --------------------------------------------------------------------------------------------------------	
 	
 @Subrutina que calcula el cociente  de dos numeros
@@ -391,4 +388,4 @@ ciclo:
 	bgt	ciclo	@si, realizar nuevamente la resta
 	mov r0,r3	@no, mover valor de cociente a r0
 	mov pc,lr
->>>>>>> origin/master
+

@@ -81,6 +81,6 @@ b loop$
 .section .data
 .align 2
 
-estadoBajo: .word 30	@ valores de 5 a 95 (%)
-estadoAlto: .word 70	@ valores de 5 a 95 (%)
-periodo: .word 10 @ periodo en segundos
+estadoBajo: .word 70	@ valores de 5 a 95 (%)
+estadoAlto: .word 30	@ valores de 5 a 95 (%)
+periodo: .word 3 @ periodo en segundos
