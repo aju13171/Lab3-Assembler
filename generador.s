@@ -35,33 +35,32 @@ Astable:
 	/*se reasignan los registros de los estados*/
 	MOV R4, R1 /*tiempo de ALTO*/
 	MOV R5, R2 /*tiempo de BAJO*/
+cicloo:	
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#0	@ Encender el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
 	
-	/*mando instruccion de encendidio*/
-	MOV R0, #16
-	MOV R1, #0
-	push {lr} /*se almacena el lr por subrutinas anidadas*/
-	BL SetGpio
+	mov r7, #0x3E8
+	mul r0, r7, r4
+	bl Wait
 	
-	/*se crea un delay con el tiempo alto*/
-	MOV R3, #1 
-	LSL R3, R3, #7 /*un segundo en microsegundos*/
-	MUL R0, R3, R4 /*se multiplica los segundos altos por 1000000 microsegundos*/
-	BL Wait /*en r0 se envia la cantidad en microsengundos a esperar*/
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
+	mov pinVal,#1	@ Apagar el led
+	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
 	
-	/*mando instruccion de apagado*/
-	MOV R0, #16
-	MOV R1, #1
-	BL SetGpio
+	mov r7, #0x3E8
+	mul r0, r7, r5
+	bl Wait
 	
-	/*se crea un delay con el tiempo bajo*/
-	MOV R3, #1
-	LSL R3, R3, #7
-	MUL R0, R3, R5 /*se multiplica los segundos bajos por 1000000 microsegundos*/
-	BL Wait
-	
-	/*retorno al main*/
-	pop {pc}
-	
+	b cicloo
 	
 
 @ --------------------------------------------------------------------------------------------------------

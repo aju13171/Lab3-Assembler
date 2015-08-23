@@ -54,7 +54,7 @@ ldr r2,[r0] 	@cargo el dato de la variable
 add r3, r0, r1	@ suma de estadoBajo y estadoAlto
 
 cmp r3, #100	@ comparacion estadoAlto + estadoBajo = 100
-bne Alarma		@ si la suma no es igual a 100 ejecutar alarma.
+@bne Alarma		@ si la suma no es igual a 100 ejecutar alarma. @ <----------------------- comentado pq sino simpre hace el salto hay q corregirlo
 
 @multiplicar % en alto por periodo
 mul r0, r1, r2
@@ -72,15 +72,15 @@ ldr r0,=periodo 	@apunto a la variable tipo .word
 ldr r0,[r0] 	@cargo el dato de la variable
 
 @ loop infinito, la subrutina Astable
-loop$:
+@loop$:
 
 bl Astable
 
-b loop$
+@b loop$
 
 .section .data
 .align 2
 
-estadoBajo: .word 70	@ valores de 5 a 95 (%)
-estadoAlto: .word 30	@ valores de 5 a 95 (%)
-periodo: .word 3 @ periodo en segundos
+estadoBajo: .word 50	@ valores de 5 a 95 (%)
+estadoAlto: .word 50	@ valores de 5 a 95 (%)
+periodo: .word 20 @ periodo en segundos
