@@ -45,16 +45,16 @@ bl SetGpioFunction @@ llamo a la subrutina
 ldr r0,=estadoBajo 	@apunto a la variable tipo .word
 ldr r0,[r0] 	@cargo el dato de la variable
 
-ldr r0,=estadoAlto 	@apunto a la variable tipo .word
-ldr r1,[r0] 	@cargo el dato de la variable
+ldr r1,=estadoAlto 	@apunto a la variable tipo .word
+ldr r1,[r1] 	@cargo el dato de la variable
 
-ldr r0,=periodo 	@apunto a la variable tipo .word
-ldr r2,[r0] 	@cargo el dato de la variable
+ldr r2,=periodo 	@apunto a la variable tipo .word
+ldr r2,[r2] 	@cargo el dato de la variable
 
 add r3, r0, r1	@ suma de estadoBajo y estadoAlto
 
 cmp r3, #100	@ comparacion estadoAlto + estadoBajo = 100
-@bne Alarma		@ si la suma no es igual a 100 ejecutar alarma. @ <----------------------- comentado pq sino simpre hace el salto hay q corregirlo
+bne Alarma		@ si la suma no es igual a 100 ejecutar alarma. 
 
 @multiplicar % en alto por periodo
 mul r0, r1, r2
@@ -81,6 +81,6 @@ bl Astable
 .section .data
 .align 2
 
-estadoBajo: .word 50	@ valores de 5 a 95 (%)
-estadoAlto: .word 50	@ valores de 5 a 95 (%)
-periodo: .word 20 @ periodo en segundos
+estadoBajo: .word 70	@ valores de 5 a 95 (%)
+estadoAlto: .word 30	@ valores de 5 a 95 (%)
+periodo: .word 10 @ periodo en segundos

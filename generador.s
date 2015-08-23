@@ -44,8 +44,9 @@ cicloo:
 	.unreq pinNum
 	.unreq pinVal
 	
-	mov r7, #0x3E8
+	mov r7, #0x3E800
 	mul r0, r7, r4
+	
 	bl Wait
 	
 	pinNum .req r0
@@ -56,8 +57,9 @@ cicloo:
 	.unreq pinNum
 	.unreq pinVal
 	
-	mov r7, #0x3E8
+	mov r7, #0x3E800
 	mul r0, r7, r5
+	
 	bl Wait
 	
 	b cicloo
